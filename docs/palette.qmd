@@ -1,0 +1,30 @@
+---
+title: "Using our Palette"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+### Encoding channels
+
+I used the Color channel in my Comparing Twins and Comparing Kits graphics In both, I mapped color to region. Facets are also an encoding channel. I used facets in all my graphics for the Homework 3 and Homework 7 revisions. In the Comparing Twins graphic in HW3, I mapped the column to the DNA kit used and the row to the pair of twins. For Comparing Kits, I mapped the faceting column to the individuals. In both of my Homework 7 revision graphs, I faceted by region or sub-region of the world. I also used color in my graph of regions to make it more visually interesting and make it stand out more from the second one about sub-regions. Since region is a nominal variable, I used the default color scale. I also bound sliders in my sub-regions graph and in my masterpiece, which are sort of an encoding channel. For my masterpiece, I bound a slider to the MPAA rating of a movie, and I configured the sorting to be (roughly) by how old a person is recommended to be when watching a movie rather than alphabetically.
+
+### Facets
+
+I used facets in my Comparing Twins and Comparing Kits graphics in the Homework 3 Revision. I also used facets my graph of gas prices by sub-region for my Homework 7 revision. I faceted by region to be able to compare prices in parts of the world with different amounts of oil and gasoline (and economies).
+
+### Layers
+
+I used layers in my graphs about the Tanzania health surveys. I created two graphs that each included a layer with the total fertility rate (with points) and a second line for the percent of people using modern contraceptives and the unmet need for family planning, respectively. I layered them to show that more contraceptives and more family planning has led to a lower fertility rate. I also included a third graph in my concatenation that contains only the total fertility rate for context. It shows the downward trend more clearly than the other two graphics, and it makes it easier to see that the other variables had an effect on fertility rate.
+
+### Concatenation
+
+As mentioned above, I used concatination in my Tanzania health survey graphic. By separating out the variables for contraceptive use and family planning, we can better see the effects they have on the fertility rate. Including a graphic that only shows the fertility rate also makes it clearer to the viewer which line is which in each of the other two graphics.
+
+### Non-Default Scale Configuration
+
+I configured the scale on my "Total Fertility Rate in Tanzania, 1991-2016" graphic because it makes the downward trend in total fertility rate easier to see while not attempting to make it appear a more drastic change than it is. This decision was informed by Healy's (2019) advice about when to include zero in the domain of a scale. As previously mentioned, I also sorted the values in my MPAA Rating selector for my masterpiece, because the alphabetical sorting did not make a lot of sense to me.
+
+### Interactions
+
+I used tooltips in both of the graphs for my Homework 7 revision. For both, the tooltip I created includes the year and the average gas price for that year. I also created a selector for the sub-region in my graph of gas prices by region so the viewer would not have to scroll through a 3x6 grid of facets. My masterpiece is designed to be an interactive graphic by nature, so I added two interactive components: a tooltip and a selector. The tooltip includes variables that are not mapped to another encoding channel but are still relevant, like the movie's release date, title and major genre. The one thing I wish I could change is that the domestic gross is difficult to read because it does not contain commas. However, I chose not to "fix" this because they are stored as integers and it makes the most sense to use gross as a quantitative variable.

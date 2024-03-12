@@ -1,0 +1,59 @@
+---
+title: "New Challenge"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+```{python}
+import pandas as pd
+import altair as alt
+```
+
+```{python}
+tanzania_health = pd.read_csv('https://neh8.github.io/data304-neh8/tanzania_health_survey.csv')
+```
+
+I will handle the fact that surveys were conducted over multiple years by including only the year the survey ended on the visualization. There does not seem to be a significant deviation in values that directly results from the time frame of the surveys. I will add a tooltip that shows the exact survey years so the correct time range is still included in the visualization but the survey_year variable can be temporal.
+
+```{python}
+tanzania_health["survey_year"] = tanzania_health["survey_year"].replace({"2015-2016": "2016", "2004-2005": "2005", "1991-1992": "1992"})
+
+tanzania_health = tanzania_health.rename(columns={"survey_year": "year"})
+```
+
+```{python}
+#| code-fold: true
+fertility_rate_layer = alt.Chart(tanzania_health).mark_line(point=True).encode(
+  x = alt.X("year:T", title="Survey End Year"),
+  y = alt.Y("fertility_rate:Q", title="Total Fertility Rate"),
+  tooltip = [alt.Tooltip("year:T", title="Years Survey was Conducted"), alt.Tooltip("fertility_rate:Q", title="Total Fertility Rate")]
+)
+
+contraceptive_use_layer = alt.Chart(tanzania_health).mark_line(point=True).encode(
+  x = "year:T",
+  y = alt.Y("percent_contraceptive_use:Q", title="Use of Modern Contraceptives"),
+  tooltip = [alt.Tooltip("year:T", title="Years Survey was Conducted"), alt.Tooltip("percent_contraceptive_use:Q", title="Use of Modern Contraceptives")]
+)
+
+both_layers = contraceptive_use_layer + fertility_rate_layer
+both_layers = both_layers.properties(title="Effect of Increased Contraceptive Use on Total Fertility Rate")
+
+family_planning_layer = alt.Chart(tanzania_health).mark_line(point=True).encode(
+  x = "year:T",
+  y = alt.Y("percent_family_planning_need:Q", title="Unmet Need for Family Planning"),
+   tooltip = [alt.Tooltip("year:T", title="Years Survey was Conducted"), alt.Tooltip("percent_family_planning_need:Q", title="Unmet Need for Family Planning")]
+)
+
+part_2 = family_planning_layer + fertility_rate_layer
+part_2 = part_2.properties(title="Effect of Increased Family Planning on Total Fertility Rate")
+
+fertility_rate_only = alt.Chart(tanzania_health).mark_line(point=True).encode(
+  x = "year:T",
+  y = alt.Y("fertility_rate:Q", title="Fertility Rate").scale(domain=(4.5,6.5)),
+).properties(title="Total Fertility Rate in Tanzania, 1991-2016")
+
+whole_graph = alt.hconcat(fertility_rate_only, both_layers, part_2)
+whole_graph
+```
+This graph shows how the increased use of contraceptives and increased family planning have affected the fertility rate in Tanzania. As the percent of people surveyed with access to modern contraceptives increases, the total fertility rate (number of children born per woman) decreases. The increase of met needs for family planning also coincides with a decrease in the fertility rate. A graphic that "zooms in" on the fertility rate only shows how significant the change is in context. When the scale includes zero, we can't really see a trend, but when we set the scale to start at 4.5, we see that there is a significant decrease.

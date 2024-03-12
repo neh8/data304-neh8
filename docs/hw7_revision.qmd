@@ -1,0 +1,64 @@
+---
+title: "Homework 7 Revision"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+```{python}
+import altair as alt
+import pandas as pd
+```
+
+```{python}
+gas_prices = pd.read_csv("https://calvin-data304.netlify.app/data/pump_price_for_gasoline_us_per_liter.csv")
+country_codes = pd.read_csv("https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv")
+```
+
+## Homework 7 Revision
+
+```{python}
+gas_prices = pd.melt(gas_prices, id_vars=["country"], var_name="year", value_name="gas_price").dropna()
+```
+
+```{python}
+#| code-fold: true
+gas_prices["country"] = gas_prices["country"].replace({"Tanzania": "Tanzania, United Republic of", "USA": "United States of America", "UK": "United Kingdom of Great Britain and Northern Ireland", "Congo, Rep.": "Congo", "Congo, Dem. Rep.": "Congo, Democratic Republic of the", "Vietnam": "Viet Nam", "Hong Kong, China": "Hong Kong", "Slovak Republic": "Slovakia", "Czech Republic": "Czechia", "Cape Verde": "Cabo Verde", "Cote d'Ivoire": "Côte d'Ivoire", "Kyrgyz Republic": "Kyrgyzstan"})
+```
+
+```{python}
+#| code-fold: true
+country_codes["name"] = country_codes["name"].replace({"Bolivia (Plurinational State of)": "Bolivia", "Venezuela (Bolivarian Republic of)": "Venezuela", "Korea, Republic of": "South Korea", "Iran (Islamic Republic of)": "Iran", "Syrian Arab Republic": "Syria", "Palestine, State of": "Palestine", "Russian Federation": "Russia", "United Arab Emirates": "UAE", "Korea (Democratic People's Republic of)": "North Korea", "Brunei Darussalam": "Brunei", "Lao People's Democratic Republic": "Lao", "Moldova, Republic of": "Moldova", "Saint Lucia": "St. Lucia"})
+```
+
+```{python}
+comparison_by_region = alt.Chart(gas_prices).mark_line().transform_lookup(lookup="country", from_=alt.LookupData(country_codes, "name", ["region"])).transform_aggregate(mean_regional="mean(gas_price)", groupby=["region", "year"]).encode(
+  x = alt.X("year:T", title="Year"),
+  y = alt.Y("mean_regional:Q", title="Price of gas (U.S. dollars)"),
+  color = "region:N",
+  tooltip=[alt.Tooltip("year:T", title="Year"), alt.Tooltip("mean_regional:Q", title="Mean Regional Gas Price")]
+).facet("region:N", columns=3).properties(title="Annual Average Gas Price in Six Regions of the World (in U.S. Dollars)")
+comparison_by_region
+```
+
+This graph shows the average price of gas in U.S. dollars in six different regions of the world (null is Antarctica). The prices are averaged across multiple countries. The highest prices tend to be in Europe and (surprisingly) Antarctica. They are lower in Asia and Africa. It appears that prices tend to be higher in regions that tend to import oil (western Europe, America), and low in Asia, which in this graphic includes the Middle East. They are also low in Africa, which includes countries like Sudan that has and exports lots of oil. It also shows the peak in 2012 resulting from the high price of oil that year (and tensions in the Middle East).
+
+```{python}
+region_selector = alt.selection_point(
+    name="Sub-Region",
+    fields=["sub-region"],
+    bind=alt.binding_select(options=list(country_codes['sub-region'].unique())),
+    value='Southern Asia'
+)
+```
+
+```{python}
+comparison_by_sub_region = alt.Chart(gas_prices).mark_line().transform_lookup(lookup="country", from_=alt.LookupData(country_codes, "name", ["region", "sub-region"])).transform_aggregate(mean_regional="mean(gas_price)", groupby=["sub-region", "year"]).transform_filter(region_selector).encode(
+  x = alt.X("year:T", title="Year"),
+  y = alt.Y("mean_regional:Q", title="Price of gas (U.S. dollars)"),
+    tooltip=[alt.Tooltip("year:T", title="Year"), alt.Tooltip("mean_regional:Q", title="Mean Regional Gas Price")]
+).properties(title="Annual Average Price of Gas Across Sub-Regions of the World (U.S. Dollars)").add_params(region_selector)
+comparison_by_sub_region
+```
+
+This graphic makes the same comparison as the previous one, but across sub-regions of the world. There is a fairly uniform trend of rising prices between about 2002 and 2012, with a subsequent decrease around 2012. Interestingly, in wealthier parts of the world like Northern and Western Europe, prices tend to be the highest, particularly during the peak at 2012. This graphic explains some of the trends in the previous graphic. For instance, the lowest prices are in Northern Africa, which again includes countries with high oil exports, and in South-eastern Asia, which is what this dataset calls the Middle East. I bound a selector for sub-region to avoid having a grid of 18 charts.

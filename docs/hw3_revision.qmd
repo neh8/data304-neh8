@@ -1,0 +1,48 @@
+---
+title: "Homework 3 Revision"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+## Load Packages and Data
+
+```{python}
+import pandas as pd
+import altair as alt
+
+twins_long = pd.read_csv('https://calvin-data304.netlify.app/data/twins-genetics-long.csv')
+twins_wide = pd.read_csv('https://calvin-data304.netlify.app/data/twins-genetics-wide.csv')
+```
+
+a\. I liked Lien's Comparing Kits graph because it includes a slider that lets us see the different pairs of twins without having to scroll through a very long or very wide graph. It easily shows how different DNA kits have different genetic shares for regions for the same pair of twins. One thing I would change is that the colors by region are not consistent for different pairs, but I believe this is just a problem of the slider changing the colors across different sub-graphs. Is there a way to make sure the colors are consistent even when the slider is moved? It seems like there should be a way to set consistent colors across
+
+c\. I don't like when scatter plots are used to visualize this data because I know now what the genetic share means. The scatter plots for comparing kits imply that there is a linear trend between the shares of two kits, which is both wrong and a misrepresentation of the data. I am talking specifically about Aaron's Comparing Twins graph and Ryan's Comparing Kits graph. Dot plots like John and Daniel used are more honest, but do not necessarily represent the data story better.
+
+d.Two Graphs:
+
+Comparing Kits:
+
+```{python}
+compare_twins = alt.Chart(twins_long).mark_rect().encode(
+  x="id:N",
+  y="genetic share:Q",
+  color="region:N"
+).facet(column="kit:N", row="pair:N").properties(title="Proportion of Difference in Shared DNA from Different Regions among Twins")
+compare_twins
+```
+
+This graphic shows the genetic differences among pairs of twins across different DNA kits. Each facet contains a comparison between an individual pair of twins. Each faceted row represents the results of each of the three DNA kits on that same pair of twins. Interestingly, the graphic shows that across different DNA kits, there are genetic differences between twins. Each different-colored area on the bars represents the proportion of that person's DNA that the kit identified as being from a particular region. Controlling for differences between twins and pairs, we see that the different kits give different proportions of genetic share for regions across individuals.
+
+Comparing kits:
+
+```{python}
+compare_kits = alt.Chart(twins_long).mark_bar().encode(
+  x="kit:N",
+  y="genetic share:Q",
+  color="region:N"
+).facet(column="twin:N").properties(title="Differences in DNA Shares from Various Regions in Twelve Individuals Using Three Different DNA Kits")
+compare_kits
+```
+
+This chart shows the differences between kits by creating one facet for each individual and displaying the results of different DNA kits side by side. Different kits show different genetic shares for regions across the same person. The differences between kits may explain some, though not all, of the genetic differences between twins displayed in the previous graphic. The way this chart is set up admittedly makes it difficult to make side-by-side comparisons of all of the genetic shares, but the main story that there are differences in the proportions is evident without requiring direct comparisons between all related values.

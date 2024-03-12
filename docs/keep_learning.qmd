@@ -1,0 +1,22 @@
+---
+title: "Keep Learning"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+### Features we did not learn in class
+
+I used transform_aggregate to create my revised graphs for Homework 7. Instead of using Pandas to calculate the mean for each region for every year, I used the Altair function that does the same thing. Within my aggregation, I grouped by the region or sub-region and year to allow for faceting by the region/sub-region.
+
+I also added a selector to my chart faceted by sub-region using alt.selection_point and add_params. This is a type of interaction we learned in Vega-Lite but not in Altair. The one part I could not figure out was fixing the title of the selector. I did the same thing in my masterpiece.
+
+### Principles of Good Graphic Design
+
+I followed the principle outlined by Knafflic (2015) on pages 132-133 about eliminating distractions in my Homework 7 revision. My original graph had a point for each country and used color by the sub-region. This ended up being a lot of unnecessary data that didn't really tell a story. I condensed the points into a single line for each region, per Knafflic's consideration that not all data are equally important. Including a single line for each region used far less ink, was less distracting, and told a much more effective story than the collection of points. It also relates to the idea of summarizing where detail isn't needed. I needed to come up with a message first, then eliminate everything that wasn't necessary to tell that story.
+
+In re-designing my grouped and stacked bars in my Homework 3 revision, I used the advice from section 6.2 of Wilke (2019) ([https://clauswilke.com/dataviz/ visualizing-amounts.html](https://clauswilke.com/dataviz/visualizing-amounts.html)). Wilke says grouped bar plots can be confusing and difficult to read, so rather than displaying all the grouped bars on a single chart, I faceted the bars into multiple windows.
+
+On the same charts, I followed Wilke's advice from chapter 10 about visualizing proportions (<https://clauswilke.com/dataviz/visualizing-proportions.html>). Wilke usually does not recommend stacked bars unless there are only two stacks, or else it is difficult to make comparisons. However, since the goal of my graphics is not to make any specific comparisons, but simply to see that differences exist between categories, stacked bars are an effective way to visualize these proportions.
+
+For my masterpiece, I mainly tried to adhere to the principles of good graphic design outlined by Tufte (2001). I discuss this in detail in the page on my masterpiece.

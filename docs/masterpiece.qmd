@@ -1,0 +1,42 @@
+---
+title: "Masterpiece"
+author: "Noelle Haviland"
+format: html
+editor: visual
+---
+
+```{python}
+import pandas as pd
+import altair as alt
+from vega_datasets import data
+```
+
+```{python}
+movies = data.movies()
+```
+
+```{python}
+#| code-fold: true
+mpaa_rating_order = ["G", "PG", "PG-13", "R", "NC-17", "Open", "Not Rated"]
+
+genre_selector = alt.selection_point(
+    fields=["MPAA_Rating"],
+    bind=alt.binding_select(options=mpaa_rating_order, name='MPAA Rating: '),
+    value='G')
+
+ratings_gross = alt.Chart(movies).transform_filter(genre_selector).mark_point(opacity=0.5).encode(
+  x = alt.X("Rotten_Tomatoes_Rating:Q", title="Rotten Tomatoes Rating"),
+  y = alt.Y("US_Gross:Q", title = "U.S. Gross (dollars)"),
+  color = alt.Color("Source:N", title="Source Material"),
+  tooltip = [alt.Tooltip("Title:N", title="Title"), alt.Tooltip("Release_Date:T", title="Release Date"), alt.Tooltip("Rotten_Tomatoes_Rating:Q", title="Rotten Tomatoes Rating"), alt.Tooltip("US_Gross:Q", title="U.S. Gross (dollars)"), alt.Tooltip("MPAA_Rating:N", title="MPAA Rating"), alt.Tooltip("Major_Genre:N", title="Major Genre"), alt.Tooltip("Source:N", title="Source Material")]
+).add_params(genre_selector).properties(title="Can a Movie's Rotten Tomatoes Score Predict How Much Money it Made in America?")
+ratings_gross
+```
+
+### Story
+
+What factors influence how much money a movie makes? Does its score on platforms like Rotten Tomatoes matter? Also, how do audiences *really* feel about all of the remakes and sequels being made? This graphic attempts to answer all of these questions in an interactive way. On the whole, it appears that movies with a higher score on Rotten Tomatoes also tend to have a higher gross, but this is not true in all cases. For example, for PG-13 movies, movies based on pre-existing intellectual property do not necessarily have higher grosses or Rotten Tomatoes scores than original screenplays, though many companies tend to think they do. While the movies with some of the highest scores are based on books or comics, many of these also have low scores and low grosses, and original screenplays can have both high grosses and high scores. A higher score also does not necessarily correlate to a higher gross. Movies can become popular despite not being rated highly by critics. While this graphic's interactive components render it ineffective for a PowerPoint presentation or the like, I want it to be effective for people looking to learn more about the topic.
+
+### Design Principles
+
+I tried to design this graphic according to Tufte's (2001) principle of good graphic design. The only point I am not sure I did well in is the data-to-ink ratio, but since I worked with a high volume of data, I do not believe this is too much of an issue. I am being honest with the data by separating out any factors that might influence either the gross or Rotten Tomatoes score visually, particularly by separating out MPAA ratings. Making a claim that PG-13 movies make the most money (and, by extension, more should be made) does not tell the whole story, particularly with high outliers like *Avatar*. Just because films like *Toy Story* with a G rating did not make as much in the U.S. as *Avatar* does not mean there is not a market for them. I also tried to adhere to Tufte's ideas of clarity, precision and efficiency, and I hope this graph is enjoyable and not cumbersome to look at with the interactive elements I added. I envision a casual user finding their favorite movie and seeing where it falls on the scale of Rotten Tomatoes scores versus domestic gross. This graph is also definitely multivariate. I considered including other variables as well, like distributor and major genre, but I would have had to replace one of the others, and I believe I selected the best variables for the story I intended to tell. I also wanted to avoid including too many variables. I attempted a version of this graphic with an additional slider bound to the year and shape mapped to distributor, but such a graph was far too noisy to say anything at all. It would have also interfered with perception, as discussed by Healy (2019). It would be cumbersome for a viewer to try to interpret two legends at once, particularly when the color scale is already not the greatest (but I wasn't sure how to remedy that given the number of categories I was working with). I aimed for a balance between simplicity and complexity. I also considered a version with faceting by MPAA rating instead of using a selector, but since I have finally learned to bind sliders in Altair, I wanted to show off a little. Plus, it adds to the overall interactivity of the graphic. I chose to include the variables that did not make it to an encoding channel in my tooltip, because I still feel they are important to the story but not as important as the main four I chose. This goes back to Knafflic's (2015) idea of thinking like a designer. I felt these variables were necessary, but not necessary enough to use ink on. This graphic was not necessarily designed to go in a presentation, but I think it would be very useful in an interactive widget, perhaps with more graphics related to the topic.
