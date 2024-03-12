@@ -3,6 +3,7 @@ title: "Masterpiece"
 author: "Noelle Haviland"
 format: html
 editor: visual
+embed-resources: true
 ---
 
 ```{python}

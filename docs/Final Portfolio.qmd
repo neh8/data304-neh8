@@ -1,0 +1,49 @@
+---
+title: "Final Portfolio"
+author: "Noelle Haviland"
+format: html
+editor: visual
+embed-resources: true
+---
+
+Welcome to my Final Portfolio!
+
+### Exercises
+
+Homework 3 Revision: <https://neh8.github.io/data304-neh8/hw3_revision>
+
+Homework 7 Revision: <https://neh8.github.io/data304-neh8/hw7_revision>
+
+New Challenge: <https://neh8.github.io/data304-neh8/new_challenge>
+
+Masterpiece: <https://neh8.github.io/data304-neh8/masterpiece>
+
+Using our Palette: <https://neh8.github.io/data304-neh8/palette>
+
+Keep Learning: <https://neh8.github.io/data304-neh8/keep_learning>
+
+### Data Sets
+
+Tanzania Health Survey: <https://neh8.github.io/data304-neh8/tanzania_health_survey.csv>
+
+Twins Wide Format: <https://calvin-data304.netlify.app/data/twins-genetics-long.csv>
+
+Twins Long Format: <https://calvin-data304.netlify.app/data/twins-genetics-wide.csv>
+
+Gas Prices: <https://calvin-data304.netlify.app/data/pump_price_for_gasoline_us_per_liter.csv>
+
+Codes for Countries (for gas prices graphic): <https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv>
+
+### Source Documents
+
+HW3: <http://neh8.github.io/data304-neh8/hw3_revision.qmd>
+
+HW7: <http://neh8.github.io/data304-neh8/hw7_revision.qmd>
+
+New Challenge: <http://neh8.github.io/data304-neh8/new_challenge.qmd>
+
+Masterpiece: <https://neh8.github.io/data304-neh8/masterpiece.qmd>
+
+Palette: <https://neh8.github.io/data304-neh8/palette.qmd>
+
+Keep Learning: <https://neh8.github.io/data304-neh8/keep_learning.qmd>

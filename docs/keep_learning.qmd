@@ -3,6 +3,7 @@ title: "Keep Learning"
 author: "Noelle Haviland"
 format: html
 editor: visual
+embed-resources: true
 ---
 
 ### Features we did not learn in class

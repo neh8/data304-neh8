@@ -3,6 +3,7 @@ title: "Using our Palette"
 author: "Noelle Haviland"
 format: html
 editor: visual
+embed-resources: true
 ---
 
 ### Encoding channels

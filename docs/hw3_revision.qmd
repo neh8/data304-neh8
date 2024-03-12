@@ -3,6 +3,7 @@ title: "Homework 3 Revision"
 author: "Noelle Haviland"
 format: html
 editor: visual
+embed-resources: true
 ---
 
 ## Load Packages and Data
